@@ -3,7 +3,7 @@
 var files = require('../util/files');
 
 const validateFourDigitsWithinLimit = (item, low, high) => {
-    if (/\d{4}/.test(item)){
+    if (/\d{4}/.test(item) && item.length === 4){
         var year = parseInt(item);
         if (year >= low && year <= high){
             return true;
@@ -61,7 +61,7 @@ const isValidPassport = (passportItems) => {
 
     //hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
     var hcl = itemValue(passportItems, 'hcl');
-    if (!/#(\d|[a-f]){6}/.test(hcl)){
+    if (!/#(\d|[a-f]){6}/.test(hcl) || hcl.length != 7){
         return false;
     } 
 
@@ -73,10 +73,10 @@ const isValidPassport = (passportItems) => {
 
     //pid (Passport ID) - a nine-digit number, including leading zeroes.
     var pid = itemValue(passportItems, 'pid');
-    if (!/\d{9}/.test(pid)){
+    if (!/\d{9}/.test(pid) || pid.length != 9){
         return false;
     } 
-    
+
     return true;
 }
 
